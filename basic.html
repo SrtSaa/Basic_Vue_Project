@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Basic of Vue</title>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<p>{{ greeting }}</p>
+			<p><input @keyup.enter="greet" v-model="greeting" /></p>
+
+			<!-- <button v-on:click="isVisible1 = !isVisible1">Toggle line</button> -->
+			<p>
+				<button @click="isVisible1 = !isVisible1">Toggle line 1</button>
+			</p>
+			<p v-if="isVisible1">Line 1</p>
+
+			<p><button @click.right="toggleLines">Toggle lines</button></p>
+			<p v-if="isVisible2">Line 2</p>
+			<p v-else-if="isVisible3">Line 3</p>
+			<p v-else>Right click on Toggle lines Button</p>
+
+			<p v-show="isVisible4">Line 4</p>
+		</div>
+
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script>
+			let app = Vue.createApp({
+				data: function () {
+					return {
+						greeting: "Hello World!!!",
+						isVisible1: false,
+						isVisible2: false,
+						isVisible3: false,
+						isVisible4: false,
+						c: 1,
+					};
+				},
+				methods: {
+					toggleLines() {
+						this.c += 1;
+						if (this.c == 2) {
+							this.isVisible2 = true;
+						} else if (this.c == 3) {
+							this.isVisible2 = false;
+							this.isVisible3 = true;
+						} else {
+							this.isVisible3 = false;
+							this.c = 1;
+						}
+					},
+					greet() {
+						console.log(this.greeting);
+					},
+				},
+			});
+
+			app.mount("#app");
+		</script>
+	</body>
+</html>
